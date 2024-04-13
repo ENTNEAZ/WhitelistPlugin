@@ -1,0 +1,16 @@
+name: WhitelistPlugin
+version: '${project.version}'
+main: top.nacldragon.whitelistplugin.Main
+api-version: '1.20'
+author: NaCl_Dragon
+commands:
+  register:
+    description: "申请白名单"
+    usage: /register <QQ ID>
+    aliases: [reg]
+    permission: "whitelistplugin.register"
+    permission-message: "无权使用"
+permissions:
+    whitelistplugin.register:
+        description: "申请白名单"
+        default: true
