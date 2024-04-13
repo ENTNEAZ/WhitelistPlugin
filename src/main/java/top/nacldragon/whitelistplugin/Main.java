@@ -16,7 +16,7 @@ public final class Main extends JavaPlugin {
         //初始化配置文件 读取配置文件
         this.saveDefaultConfig();
         QQGroup.getInstance().setGroup(this.getConfig().getString("GroupQQID"));
-        String miraiAPI = this.getConfig().getString("MiraiAPI");
+        String miraiAPI = this.getConfig().getString("MiraiAddr");
         if (!miraiAPI.substring(miraiAPI.length() - 1).equals("/")) {
             miraiAPI += "/";
         }
@@ -29,7 +29,7 @@ public final class Main extends JavaPlugin {
         getCommand("register").setTabCompleter(TabHandler.getInstance());
         getCommand("reg").setTabCompleter(TabHandler.getInstance());
 
-        this.getLogger().info("[WhitelistPlugin]Load Complete");
+        this.getLogger().info("Load Complete");
     }
 
     @Override
