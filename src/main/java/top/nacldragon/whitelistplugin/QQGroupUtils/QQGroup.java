@@ -23,6 +23,9 @@ public class QQGroup {
     public void setGroup(String group) {
         this.group = group;
     }
+    public String getGroup() {
+        return this.group;
+    }
     public void setMiraiAPI(String miraiAPI) {
         this.miraiAPI = miraiAPI;
     }
