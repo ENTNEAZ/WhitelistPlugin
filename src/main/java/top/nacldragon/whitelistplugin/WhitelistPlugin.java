@@ -18,6 +18,7 @@ public final class WhitelistPlugin extends JavaPlugin {
     public void onEnable() {
 
         //初始化配置文件 读取配置文件
+        //config.yml
         this.saveDefaultConfig();
         QQGroup.getInstance().setGroup(this.getConfig().getString("GroupQQID"));
         String miraiAPI = this.getConfig().getString("MiraiAddr");
@@ -26,14 +27,13 @@ public final class WhitelistPlugin extends JavaPlugin {
         }
         QQGroup.getInstance().setMiraiAPI(miraiAPI);
 
+        //whitelist.yml
         File whitelistFile = new File(this.getDataFolder(), "whitelist.yml");
         if (!whitelistFile.exists()) {
             whitelistFile.getParentFile().mkdirs();
             this.saveResource("whitelist.yml", false);
         }
         Whitelist.getInstance().LoadFromYamlConfiguration(YamlConfiguration.loadConfiguration(whitelistFile),whitelistFile);
-        ;
-
 
 
         //注册命令

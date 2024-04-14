@@ -16,6 +16,7 @@ public class PlayerJoinListener implements Listener {
     @EventHandler
     public void onPlayerJoinServer(PlayerJoinEvent event) {
         if(event.getPlayer().isOp()) {
+            // OP不用限制
             event.getPlayer().sendMessage("§b[WhitelistPlugin]§r §a你是b管理，没人敢惹你");
             return;
         }

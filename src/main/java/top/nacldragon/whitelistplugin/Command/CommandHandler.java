@@ -26,6 +26,7 @@ public class CommandHandler implements CommandExecutor {
                 return true;
             }
             if(((Player) sender).isOp()){
+                // OP特有命令
                 if (args[0].equalsIgnoreCase("add")) {
                     if (args.length == 3) {
                         Whitelist.getInstance().AddUUIDToWhitelist(args[1],args[2]);

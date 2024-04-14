@@ -10,6 +10,7 @@ import java.util.List;
 public class Whitelist {
     private static Whitelist instance;
     private WhitelistStruct[] whitelist;
+
     private YamlConfiguration yamlWhitelist;
     private File yamlWhitelistFile;
 
@@ -22,9 +23,9 @@ public class Whitelist {
 
     private Whitelist() {
         whitelist = new WhitelistStruct[0];
-        // TODO 从文件中读取白名单
     }
     public boolean CheckIfQQInWhitelist(String qq) {
+        // 线性搜索 可以改HashMap
         for (WhitelistStruct whitelistStruct : whitelist) {
             if (whitelistStruct.getQQ().equals(qq)) {
                 return true;
@@ -34,6 +35,7 @@ public class Whitelist {
     }
 
     public boolean CheckIfUUIDInWhitelist(String uuid) {
+        // 线性搜索 可以改HashMap
         for (WhitelistStruct whitelistStruct : whitelist) {
             if (whitelistStruct.getUUID().equals(uuid)) {
                 return true;

@@ -25,6 +25,12 @@ public class TabHandler implements TabCompleter {
 
         if (command.getName().equalsIgnoreCase("register") || command.getName().equalsIgnoreCase("reg")) {
             if (((Player) sender).isOp()){
+                //OP特有
+                /*
+                /reg add <UUID> <QQ>
+                /reg remove <UUID>
+                /reg list
+                 */
                 if (args.length == 1) {
                     return Arrays.asList("add", "remove", "list");
                 }
@@ -40,7 +46,12 @@ public class TabHandler implements TabCompleter {
                     }
                 }
             }
+
             if (sender.hasPermission("whitelistplugin.register") && !Whitelist.getInstance().CheckIfUUIDInWhitelist(((Player) sender).getUniqueId().toString())) {
+                //普通人有的
+                /*
+                /reg <QQ>
+                 */
                 if (args.length == 1) {
                     return Arrays.asList("<QQ>");
                 }
