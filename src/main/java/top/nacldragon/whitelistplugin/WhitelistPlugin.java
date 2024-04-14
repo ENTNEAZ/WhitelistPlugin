@@ -5,6 +5,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 import top.nacldragon.whitelistplugin.Command.CommandHandler;
 import top.nacldragon.whitelistplugin.Command.TabHandler;
+import top.nacldragon.whitelistplugin.Listener.EntityDamageByEntityListener;
 import top.nacldragon.whitelistplugin.Listener.PlayerInteractListener;
 import top.nacldragon.whitelistplugin.Listener.PlayerJoinListener;
 import top.nacldragon.whitelistplugin.QQGroupUtils.QQGroup;
@@ -45,6 +46,7 @@ public final class WhitelistPlugin extends JavaPlugin {
         //注册监听器
         Bukkit.getServer().getPluginManager().registerEvents(PlayerJoinListener.getInstance(), this);
         Bukkit.getServer().getPluginManager().registerEvents(PlayerInteractListener.getInstance(), this);
+        Bukkit.getServer().getPluginManager().registerEvents(EntityDamageByEntityListener.getInstance(),this);
 
         this.getLogger().info("Load Complete");
     }
