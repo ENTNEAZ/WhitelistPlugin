@@ -49,7 +49,7 @@ public class CommandHandler implements CommandExecutor {
                     sender.sendMessage("§b[WhitelistPlugin]§r §a白名单列表:");
 
                     for (Map.Entry<String, String> entry : Whitelist.getInstance().getWhitelistMap().entrySet()) {
-                        sender.sendMessage("§b[WhitelistPlugin]§r §a" + entry.getKey() + ":" + entry.getValue());
+                        sender.sendMessage("§a" + entry.getKey() + ":" + entry.getValue());
                     }
                     return true;
                 }
