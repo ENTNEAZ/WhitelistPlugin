@@ -54,6 +54,7 @@ public class CommandHandler implements CommandExecutor {
             }
             Whitelist.getInstance().AddUUIDToWhitelist(player.getUniqueId().toString(),args[0]);
             player.sendMessage("§b[WhitelistPlugin]§r §a登记成功");
+            player.setGameMode(org.bukkit.GameMode.SURVIVAL);
             return true;
 
         }

@@ -25,10 +25,10 @@ public class PlayerInteractListener implements Listener {
             //白名单中 不发消息
             return;
         } else {
-            event.getPlayer().sendMessage("§b==========================================================");
+            event.getPlayer().sendMessage("§b===============================================");
             event.getPlayer().sendMessage("§b[WhitelistPlugin]§r §a欢迎加入服务器 请使用 /reg <QQ> 注册账号");
-            event.getPlayer().sendMessage("If you do not have QQ, please contact the administrator to register for you");
-            event.getPlayer().sendMessage("§b==========================================================");
+            event.getPlayer().sendMessage("§b[WhitelistPlugin]§r §aJoin our Discord: https://discord.gg/BdQxJZTbqU to get you registered");
+            event.getPlayer().sendMessage("§b===============================================");
             event.getPlayer().setGameMode(org.bukkit.GameMode.ADVENTURE);
             event.setCancelled(true);
         }
