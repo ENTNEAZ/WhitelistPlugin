@@ -36,7 +36,7 @@ public class CommandHandler implements CommandExecutor {
 
             Player player = (Player) sender;
             //判断重复注册
-            if(Whitelist.getInstance().CheckIfUserInWhitelist(player.getName())) {
+            if(Whitelist.getInstance().CheckIfUUIDInWhitelist(player.getUniqueId().toString())) {
                 player.sendMessage("§b[WhitelistPlugin]§r §a你已经登记过了,无需重复注册");
                 return true;
             }
@@ -52,7 +52,7 @@ public class CommandHandler implements CommandExecutor {
                 player.sendMessage("§b[WhitelistPlugin]§r §4未在群内搜索到此QQ号码，请先加QQ群:" + QQGroup.getInstance().getGroup());
                 return true;
             }
-            Whitelist.getInstance().AddUserToWhitelist(player.getName(), args[0]);
+            Whitelist.getInstance().AddUUIDToWhitelist(player.getUniqueId().toString(),args[0]);
             player.sendMessage("§b[WhitelistPlugin]§r §a登记成功");
             return true;
 

@@ -1,16 +1,17 @@
 package top.nacldragon.whitelistplugin.WhitelistUtils;
 
 public class WhitelistStruct {
-    private String username;
     private String qq;
-    public String getUsername() {
-        return username;
-    }
+    private String uuid;
+
     public String getQQ() {
         return qq;
     }
-    WhitelistStruct(String username, String qq) {
-        this.username = username;
+    public String getUUID() {
+        return uuid;
+    }
+    WhitelistStruct(String uuid, String qq) {
+        this.uuid = uuid;
         this.qq = qq;
     }
 }

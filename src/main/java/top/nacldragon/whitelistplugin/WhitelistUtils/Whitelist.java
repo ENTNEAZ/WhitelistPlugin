@@ -23,19 +23,20 @@ public class Whitelist {
         return false;
     }
 
-    public boolean CheckIfUserInWhitelist(String username) {
+    public boolean CheckIfUUIDInWhitelist(String uuid) {
         for (WhitelistStruct whitelistStruct : whitelist) {
-            if (whitelistStruct.getUsername().equals(username)) {
+            if (whitelistStruct.getUUID().equals(uuid)) {
                 return true;
             }
         }
         return false;
     }
 
-    public void AddUserToWhitelist(String username,String qq) {
+
+    public void AddUUIDToWhitelist(String uuid,String qq){
         WhitelistStruct[] oldWhitelist = whitelist;
         whitelist = new WhitelistStruct[whitelist.length + 1];
         System.arraycopy(oldWhitelist, 0, whitelist, 0, oldWhitelist.length);
-        whitelist[whitelist.length - 1] = new WhitelistStruct(username, qq);
+        whitelist[whitelist.length - 1] = new WhitelistStruct(uuid, qq);
     }
 }
