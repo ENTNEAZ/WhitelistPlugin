@@ -9,6 +9,8 @@ import org.jetbrains.annotations.NotNull;
 import top.nacldragon.whitelistplugin.QQGroupUtils.QQGroup;
 import top.nacldragon.whitelistplugin.WhitelistUtils.Whitelist;
 
+import java.util.Map;
+
 public class CommandHandler implements CommandExecutor {
     private static CommandHandler instance;
     public static CommandHandler getInstance() {
@@ -46,8 +48,9 @@ public class CommandHandler implements CommandExecutor {
 
                 if (args[0].equalsIgnoreCase("list")) {
                     sender.sendMessage("§b[WhitelistPlugin]§r §a白名单列表:");
-                    for (int i = 0; i < Whitelist.getInstance().getWhitelist().length; i++) {
-                        sender.sendMessage("§a" + Whitelist.getInstance().getWhitelist()[i].getUUID() + ":" + Whitelist.getInstance().getWhitelist()[i].getQQ());
+
+                    for (Map.Entry<String, String> entry : Whitelist.getInstance().getWhitelistMap().entrySet()) {
+                        sender.sendMessage("§b[WhitelistPlugin]§r §a" + entry.getKey() + ":" + entry.getValue());
                     }
                     return true;
                 }

@@ -5,11 +5,14 @@ import top.nacldragon.whitelistplugin.WhitelistPlugin;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Whitelist {
     private static Whitelist instance;
-    private WhitelistStruct[] whitelist;
+    private Map<String, String> whitelistMap;// UUID -> QQ
 
     private YamlConfiguration yamlWhitelist;
     private File yamlWhitelistFile;
@@ -22,47 +25,24 @@ public class Whitelist {
     }
 
     private Whitelist() {
-        whitelist = new WhitelistStruct[0];
+        whitelistMap = new HashMap<>();
     }
     public boolean CheckIfQQInWhitelist(String qq) {
-        // 线性搜索 可以改HashMap
-        for (WhitelistStruct whitelistStruct : whitelist) {
-            if (whitelistStruct.getQQ().equals(qq)) {
-                return true;
-            }
-        }
-        return false;
+        return whitelistMap.containsValue(qq);
     }
 
     public boolean CheckIfUUIDInWhitelist(String uuid) {
-        // 线性搜索 可以改HashMap
-        for (WhitelistStruct whitelistStruct : whitelist) {
-            if (whitelistStruct.getUUID().equals(uuid)) {
-                return true;
-            }
-        }
-        return false;
+        return whitelistMap.containsKey(uuid);
     }
 
 
     public void AddUUIDToWhitelist(String uuid,String qq){
-        WhitelistStruct[] oldWhitelist = whitelist;
-        whitelist = new WhitelistStruct[whitelist.length + 1];
-        System.arraycopy(oldWhitelist, 0, whitelist, 0, oldWhitelist.length);
-        whitelist[whitelist.length - 1] = new WhitelistStruct(uuid, qq);
+        whitelistMap.put(uuid,qq);
         SaveToYamlConfiguration();
     }
 
-    public void RemoveUUIDFromWhitelist(String arg) {
-        WhitelistStruct[] oldWhitelist = whitelist;
-        whitelist = new WhitelistStruct[whitelist.length - 1];
-        int i = 0;
-        for (WhitelistStruct whitelistStruct : oldWhitelist) {
-            if (!whitelistStruct.getUUID().equals(arg)) {
-                whitelist[i] = whitelistStruct;
-                i++;
-            }
-        }
+    public void RemoveUUIDFromWhitelist(String uuid) {
+        whitelistMap.remove(uuid);
         SaveToYamlConfiguration();
     }
 
@@ -71,18 +51,17 @@ public class Whitelist {
         this.yamlWhitelistFile = f;
         List<String> w = yamlWhitelist.getStringList("whitelist");
 
-        whitelist = new WhitelistStruct[w.size()];
         for (int i = 0; i < w.size(); i++) {
             String[] s = w.get(i).split(":");
-            whitelist[i] = new WhitelistStruct(s[0], s[1]);
+            whitelistMap.put(s[0],s[1]);
         }
 
     }
 
     public void SaveToYamlConfiguration() {
-        List<String> w = new java.util.ArrayList<>();
-        for (int i = 0; i < this.whitelist.length; i++) {
-            w.add(whitelist[i].getUUID() + ":" + whitelist[i].getQQ());
+        ArrayList<String> w = new java.util.ArrayList<>();
+        for (Map.Entry<String, String> entry : whitelistMap.entrySet()) {
+            w.add(entry.getKey() + ":" + entry.getValue());
         }
         yamlWhitelist.set("whitelist", w);
 
@@ -93,7 +72,7 @@ public class Whitelist {
         }
     }
 
-    public WhitelistStruct[] getWhitelist() {
-        return whitelist;
+    public Map<String, String> getWhitelistMap() {
+        return whitelistMap;
     }
 }
