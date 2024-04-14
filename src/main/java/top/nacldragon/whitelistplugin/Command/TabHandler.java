@@ -31,20 +31,26 @@ public class TabHandler implements TabCompleter {
                 /reg remove <UUID>
                 /reg list
                  */
-                if (args.length == 1) {
-                    return Arrays.asList("add", "remove", "list");
-                }
-                if (args.length == 2) {
-                    if (args[0].equalsIgnoreCase("remove") || args[0].equalsIgnoreCase("add")) {
-                        return Arrays.asList("<UUID>");
-                    }
-                }
+                switch (args.length){
+                    case 1:
+                        // /reg <add/remove/list>
+                        return Arrays.asList("add", "remove", "list");
+                    case 2:
+                        // /reg add <UUID> <QQ>
+                        // /reg remove <UUID>
+                        if (args[0].equalsIgnoreCase("remove") || args[0].equalsIgnoreCase("add")) {
+                            return Arrays.asList("<UUID>");
+                        }
+                        break;
+                    case 3:
+                        // /reg add <UUID> <QQ>
+                        if (args[0].equalsIgnoreCase("add")) {
+                            return Arrays.asList("<QQ>");
+                        }
+                        break;
 
-                if (args.length == 3) {
-                    if (args[0].equalsIgnoreCase("add")) {
-                        return Arrays.asList("<QQ>");
-                    }
                 }
+                return null;
             }
 
             if (sender.hasPermission("whitelistplugin.register") && !Whitelist.getInstance().CheckIfUUIDInWhitelist(((Player) sender).getUniqueId().toString())) {
