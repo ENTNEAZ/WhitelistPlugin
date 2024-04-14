@@ -1,7 +1,6 @@
 package top.nacldragon.whitelistplugin.WhitelistUtils;
 
 import org.bukkit.configuration.file.YamlConfiguration;
-import top.nacldragon.whitelistplugin.WhitelistPlugin;
 
 import java.io.File;
 import java.io.IOException;
@@ -51,9 +50,9 @@ public class Whitelist {
         this.yamlWhitelistFile = f;
         List<String> w = yamlWhitelist.getStringList("whitelist");
 
-        for (int i = 0; i < w.size(); i++) {
-            String[] s = w.get(i).split(":");
-            whitelistMap.put(s[0],s[1]);
+        for (String value : w) {
+            String[] s = value.split(":");
+            whitelistMap.put(s[0], s[1]);
         }
 
     }
