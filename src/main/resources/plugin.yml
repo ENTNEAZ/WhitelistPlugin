@@ -1,6 +1,6 @@
 name: WhitelistPlugin
 version: '${project.version}'
-main: top.nacldragon.whitelistplugin.Main
+main: top.nacldragon.whitelistplugin.WhitelistPlugin
 api-version: '1.20'
 author: NaCl_Dragon
 commands:

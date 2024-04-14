@@ -1,8 +1,18 @@
 package top.nacldragon.whitelistplugin.WhitelistUtils;
 
+import org.bukkit.configuration.file.YamlConfiguration;
+import top.nacldragon.whitelistplugin.WhitelistPlugin;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.List;
+
 public class Whitelist {
     private static Whitelist instance;
     private WhitelistStruct[] whitelist;
+    private YamlConfiguration yamlWhitelist;
+    private File yamlWhitelistFile;
+
     public static Whitelist getInstance() {
         if (instance == null) {
             instance = new Whitelist();
@@ -38,6 +48,7 @@ public class Whitelist {
         whitelist = new WhitelistStruct[whitelist.length + 1];
         System.arraycopy(oldWhitelist, 0, whitelist, 0, oldWhitelist.length);
         whitelist[whitelist.length - 1] = new WhitelistStruct(uuid, qq);
+        SaveToYamlConfiguration();
     }
 
     public void RemoveUUIDFromWhitelist(String arg) {
@@ -49,6 +60,34 @@ public class Whitelist {
                 whitelist[i] = whitelistStruct;
                 i++;
             }
+        }
+        SaveToYamlConfiguration();
+    }
+
+    public void LoadFromYamlConfiguration(YamlConfiguration y,File f) {
+        this.yamlWhitelist = y;
+        this.yamlWhitelistFile = f;
+        List<String> w = yamlWhitelist.getStringList("whitelist");
+
+        whitelist = new WhitelistStruct[w.size()];
+        for (int i = 0; i < w.size(); i++) {
+            String[] s = w.get(i).split(":");
+            whitelist[i] = new WhitelistStruct(s[0], s[1]);
+        }
+
+    }
+
+    public void SaveToYamlConfiguration() {
+        List<String> w = new java.util.ArrayList<>();
+        for (int i = 0; i < this.whitelist.length; i++) {
+            w.add(whitelist[i].getUUID() + ":" + whitelist[i].getQQ());
+        }
+        yamlWhitelist.set("whitelist", w);
+
+        try {
+            yamlWhitelist.save(yamlWhitelistFile);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
