@@ -30,6 +30,7 @@ public class CommandHandler implements CommandExecutor {
                     if (args.length == 3) {
                         Whitelist.getInstance().AddUUIDToWhitelist(args[1],args[2]);
                         sender.sendMessage("§b[WhitelistPlugin]§r §a添加成功");
+                        sender.sendMessage("§b[WhitelistPlugin]§r §a请记得将此玩家设置为生存模式");
                         return true;
                     }
                 }
