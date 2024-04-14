@@ -1,5 +1,6 @@
 package top.nacldragon.whitelistplugin.Command;
 
+import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -24,6 +25,33 @@ public class CommandHandler implements CommandExecutor {
                 sender.sendMessage("[WhitelistPlugin]你必须是一名玩家!");
                 return true;
             }
+            if(((Player) sender).isOp()){
+                if (args[0].equalsIgnoreCase("add")) {
+                    if (args.length == 3) {
+                        Whitelist.getInstance().AddUUIDToWhitelist(args[1],args[2]);
+                        sender.sendMessage("§b[WhitelistPlugin]§r §a添加成功");
+                        return true;
+                    }
+                }
+
+                if (args[0].equalsIgnoreCase("remove")) {
+                    if (args.length == 2) {
+                        Whitelist.getInstance().RemoveUUIDFromWhitelist(args[1]);
+                        sender.sendMessage("§b[WhitelistPlugin]§r §a移除成功");
+                        return true;
+                    }
+                }
+
+                if (args[0].equalsIgnoreCase("list")) {
+                    sender.sendMessage("§b[WhitelistPlugin]§r §a白名单列表:");
+                    for (int i = 0; i < Whitelist.getInstance().getWhitelist().length; i++) {
+                        sender.sendMessage("§a" + Whitelist.getInstance().getWhitelist()[i].getUUID() + ":" + Whitelist.getInstance().getWhitelist()[i].getQQ());
+                    }
+                    return true;
+                }
+            }
+
+
             // 判断是否有参数
             if (args.length == 0) {
                 sender.sendMessage("§b[WhitelistPlugin]§r §4请输入QQ号码");

@@ -39,4 +39,20 @@ public class Whitelist {
         System.arraycopy(oldWhitelist, 0, whitelist, 0, oldWhitelist.length);
         whitelist[whitelist.length - 1] = new WhitelistStruct(uuid, qq);
     }
+
+    public void RemoveUUIDFromWhitelist(String arg) {
+        WhitelistStruct[] oldWhitelist = whitelist;
+        whitelist = new WhitelistStruct[whitelist.length - 1];
+        int i = 0;
+        for (WhitelistStruct whitelistStruct : oldWhitelist) {
+            if (!whitelistStruct.getUUID().equals(arg)) {
+                whitelist[i] = whitelistStruct;
+                i++;
+            }
+        }
+    }
+
+    public WhitelistStruct[] getWhitelist() {
+        return whitelist;
+    }
 }
