@@ -8,6 +8,7 @@ import org.jetbrains.annotations.NotNull;
 import top.nacldragon.whitelistplugin.QQGroupUtils.QQGroup;
 import top.nacldragon.whitelistplugin.WhitelistUtils.Whitelist;
 
+import java.io.IOException;
 import java.util.Map;
 
 public class CommandHandler implements CommandExecutor {
@@ -80,15 +81,21 @@ public class CommandHandler implements CommandExecutor {
             }
 
             // 判断是否在群里
-            if (!QQGroup.getInstance().CheckIfUserInGroup(args[0])) {
-                player.sendMessage("§b[WhitelistPlugin]§r §4未在群内搜索到此QQ号码，请先加QQ群:" + QQGroup.getInstance().getGroup());
+            boolean inGroup = false;
+            try{
+                inGroup = QQGroup.getInstance().CheckIfUserInGroup(args[0]);
+                if (!inGroup) {
+                    player.sendMessage("§b[WhitelistPlugin]§r §4未在群内搜索到此QQ号码，请先加QQ群:" + QQGroup.getInstance().getGroup());
+                    return true;
+                }
+            } catch (IOException e) {
+                player.sendMessage("§b[WhitelistPlugin]§r §4无法连接到MiraiAPI，请联系管理员");
                 return true;
             }
             Whitelist.getInstance().AddUUIDToWhitelist(player.getUniqueId().toString(),args[0]);
             player.sendMessage("§b[WhitelistPlugin]§r §a登记成功");
             player.setGameMode(org.bukkit.GameMode.SURVIVAL);
             return true;
-
         }
         return false;
     }
