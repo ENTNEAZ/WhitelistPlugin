@@ -1,5 +1,8 @@
 package top.nacldragon.whitelistplugin.Command;
 
+import net.md_5.bungee.api.chat.BaseComponent;
+import net.md_5.bungee.api.chat.ClickEvent;
+import net.md_5.bungee.api.chat.HoverEvent;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -7,6 +10,7 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import top.nacldragon.whitelistplugin.QQGroupUtils.QQGroup;
 import top.nacldragon.whitelistplugin.WhitelistUtils.Whitelist;
+import net.md_5.bungee.api.chat.ComponentBuilder;
 
 import java.io.IOException;
 import java.util.Map;
@@ -50,7 +54,35 @@ public class CommandHandler implements CommandExecutor {
                     sender.sendMessage("§b[WhitelistPlugin]§r §a白名单列表:");
 
                     for (Map.Entry<String, String> entry : Whitelist.getInstance().getWhitelistMap().entrySet()) {
+                        /*
                         sender.sendMessage("§a" + entry.getKey() + ":" + entry.getValue());
+                         */
+                        ComponentBuilder UUID = new ComponentBuilder(entry.getKey()).color(net.md_5.bungee.api.ChatColor.GREEN)
+                                .event(new HoverEvent(
+                                        HoverEvent.Action.SHOW_TEXT,
+                                        new ComponentBuilder("Click to copy UUID")
+                                                .color(net.md_5.bungee.api.ChatColor.GRAY)
+                                                .create()
+                                ))
+                                .event(new ClickEvent(
+                                        ClickEvent.Action.COPY_TO_CLIPBOARD,
+                                        entry.getKey()
+                                ));
+                        ComponentBuilder colon = new ComponentBuilder(" : ").color(net.md_5.bungee.api.ChatColor.GREEN);
+                        ComponentBuilder QQ = new ComponentBuilder(entry.getValue()).color(net.md_5.bungee.api.ChatColor.GREEN)
+                                .event(new HoverEvent(
+                                        HoverEvent.Action.SHOW_TEXT,
+                                        new ComponentBuilder("Click to copy QQ")
+                                                .color(net.md_5.bungee.api.ChatColor.GRAY)
+                                                .create()
+                                ))
+                                .event(new ClickEvent(
+                                        ClickEvent.Action.COPY_TO_CLIPBOARD,
+                                        entry.getValue()
+                                ));
+
+                        BaseComponent[] component = UUID.append(colon.create()).append(QQ.create()).create();
+                        sender.spigot().sendMessage(component);
                     }
                     return true;
                 }
