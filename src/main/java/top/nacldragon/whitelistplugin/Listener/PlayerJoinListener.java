@@ -1,5 +1,6 @@
 package top.nacldragon.whitelistplugin.Listener;
 
+import org.bukkit.GameMode;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -24,7 +25,9 @@ public class PlayerJoinListener implements Listener {
 
         if(Whitelist.getInstance().CheckIfUUIDInWhitelist(event.getPlayer().getUniqueId().toString())) {
             // 在白名单中 不发消息
-            return;
+            if (event.getPlayer().getGameMode() == GameMode.ADVENTURE) {
+                event.getPlayer().setGameMode(GameMode.SURVIVAL);
+            }
         } else {
             PlayerMessageSender.getInstance().SendPlayerUnwhitelistedMessage(event.getPlayer());
         }
